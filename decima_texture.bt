@@ -1,0 +1,91 @@
+#ifndef DECIMA_TEXTURE_BT
+#define DECIMA_TEXTURE_BT
+
+#include "decima_common.bt"
+
+local uquad DecimaTextureMagic = 0xa664164d69fd2b38;
+
+typedef enum <uchar> {
+    BC1 = 0x42,
+    BC2 = 0x43,
+    BC3 = 0x44,
+    BC4 = 0x45,
+    BC5 = 0x47,
+    BC7 = 0x4B,
+    RGBA8 = 0xC,
+    A8 = 0x1F
+} DecimaTextureFormat;
+
+uint DecimaTextureBlockDensity(DecimaTextureFormat& fmt) {
+    switch (fmt) {
+        case BC1:   return 4;
+        case BC3:   return 8;
+        case BC4:   return 4;
+        case BC5:   return 8;
+        case BC7:   return 8;
+        case A8:    return 8;
+        case RGBA8: return 32;
+        case 19: return 64;
+    }
+}
+
+uint DecimaTextureBlockSize(DecimaTextureFormat& fmt) {
+    switch (fmt) {
+        case BC1:   return 4;
+        case BC3:   return 4;
+        case BC4:   return 4;
+        case BC5:   return 4;
+        case BC7:   return 4;
+        case A8:    return 1;
+        case RGBA8: return 1;
+        case 19: return 1;
+    }
+}
+
+typedef enum <uchar> {
+    NotPresent = 0x00,
+    Embedded = 0x01,
+    ImmediateCoreFile = 0x02,
+    CoreFile = 0x03,
+    WorkOnly = 0x05
+} DecimaTextureLoadMode;
+
+typedef struct (uint width, uint height, DecimaTextureFormat fmt) {
+    uchar data[width * height * DecimaTextureBlockDensity(fmt) / 8];
+} DecimaTextureData;
+
+typedef struct {
+    DecimaCoreHeader header;
+    ushort unk_0;
+    ushort width;
+    ushort height;
+    ushort layers;
+    uchar  total_mips;
+    DecimaTextureFormat fmt;
+    uint unk_1 <format=hex>;
+    uchar unk_2;
+    DecimaTextureLoadMode mode;
+    DecimaGUID guid;
+    uint buffer_size;
+    uint total_size;
+    uint streamed_size;
+    uint streamed_mips;
+    uint unk_3;
+    uint unk_4;
+
+    if (streamed_size > 0) {
+        DecimaStream stream;
+    }
+
+    local uint current_mip;
+    local uint current_mip_width;
+    local uint current_mip_height;
+
+    for (current_mip = streamed_mips; current_mip < total_mips; current_mip++) {
+        current_mip_width = Max(width >> current_mip, DecimaTextureBlockSize(fmt));
+        current_mip_height = Max(height >> current_mip, DecimaTextureBlockSize(fmt));
+        DecimaTextureData mip(current_mip_width, current_mip_height, fmt);
+    }
+} DecimaTexture;
+
+#endif

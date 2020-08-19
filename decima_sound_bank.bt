@@ -1,0 +1,29 @@
+#ifndef DECIMA_SOUND_BANK_BT
+#define DECIMA_SOUND_BANK_BT
+
+#include "decima_common.bt"
+
+local uquad DecimaSoundBankMagic = 0x150c273beb8f2d0c;
+
+typedef struct {
+    char id[4];
+    uint length;
+    uchar data[length];
+} WwiseSection;
+
+typedef struct {
+    DecimaCoreHeader header;
+    uint unk_0;
+    uint unk_1;
+    uint unk_2;
+
+    local uint position = FTell();
+
+    while (FTell() - position < unk_1) {
+        WwiseSection section;
+    }
+
+    uchar unk_3[header.size - FTell() + position - 28];
+} DecimaSoundBank;
+
+#endif

@@ -1,0 +1,20 @@
+#include "decima_common.bt"
+#include "decima_texture_set.bt"
+#include "decima_sound_bank.bt"
+
+while (!FEof()) {
+    switch (DecimaPeekMagic()) {
+        case DecimaTextureSetMagic:
+            DecimaTextureSet texture_set;
+            break;
+        case DecimaTextureMagic:
+            DecimaTexture texture;
+            break;
+        case DecimaSoundBankMagic:
+            DecimaSoundBank sound_bank;
+            break;
+        default:
+            DecimaDummy unknown;
+            break;
+    }
+}

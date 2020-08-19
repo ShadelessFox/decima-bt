@@ -1,0 +1,45 @@
+#ifndef DECIMA_TEXTURE_SET_BT
+#define DECIMA_TEXTURE_SET_BT
+
+#include "decima_common.bt"
+#include "decima_texture.bt"
+
+local uquad DecimaTextureSetMagic = 0xa321e8c307328d2e;
+
+typedef struct {
+    uint unk_0;
+    uint unk_1;
+    uint unk_2;
+    uint unk_3;
+    uchar unk_4;
+    DecimaGUIDRef guid;
+} DecimaTextureSetUnknown;
+
+typedef struct {
+    uint slot;
+    DecimaHashString name;
+    ushort unk_0;
+    uint unk_1;
+    uint unk_2;
+    uint unk_3;
+    if (unk_0 == 0) {
+        uint unk_5;
+    } else {
+        uint width;
+        uint height;
+    }
+    float unk_4[4];
+} DecimaTextureSetEntry;
+
+typedef struct {
+    DecimaCoreHeader header;
+    uint count_unknown;
+    DecimaTextureSetUnknown unk_0[count_unknown] <optimize=false>;
+    uint unk_1;
+    uint textures_count;
+    DecimaTextureSetEntry entries[textures_count] <optimize=false>;
+    uchar unk_2;
+    DecimaTexture texture[count_unknown] <optimize=false>;
+} DecimaTextureSet;
+
+#endif

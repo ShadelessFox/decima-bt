@@ -1,0 +1,100 @@
+#ifndef DECIMA_COMMON_BT
+#define DECIMA_COMMON_BT
+
+LittleEndian();
+
+typedef struct {
+    uint size;
+    char data[size];
+} DecimaString <read=DecimaStringRead>;
+
+string DecimaStringRead(DecimaString& x) {
+    if (exists(x.data))
+        return x.data;
+    return "<empty>";
+}
+
+typedef struct {
+    uint size;
+    uint hash;
+    char data[size];
+} DecimaHashString <read=DecimaHashStringRead>;
+
+string DecimaHashStringRead(DecimaString& x) {
+    if (exists(x.data))
+        return x.data;
+    return "<empty>";
+}
+
+typedef struct {
+    uquad data[2] <format=hex>;
+} DecimaGUID <read=DecimaGUIDRead>;
+
+string DecimaGUIDRead(DecimaGUID& x) {
+    string s;
+    SPrintf(s, "%08x-%04x-%04x-%04x-%012x",
+        x.data[0] >> 32,
+        x.data[0] >> 16 & 0xffff,
+        x.data[0] >> 0  & 0xffff,
+        x.data[1] >> 48,
+        x.data[1] >> 0
+    );
+    return s;
+}
+
+typedef struct {
+    uchar mode;
+    if (mode > 0)
+        DecimaGUID guid;
+    if (mode == 2)
+        DecimaHashString stream;
+} DecimaGUIDRef <read=DecimaGUIDRefRead>;
+
+string DecimaGUIDRefRead(DecimaGUIDRef& x) {
+    if (exists(x.guid))
+        return DecimaGUIDRead(x.guid);
+    return "<not present>";
+}
+
+typedef struct {
+    DecimaString name;
+    DecimaGUID tag;
+    uint unk_0;
+    uint offset;
+    uint size;
+} DecimaStream <read=DecimaStreamRead>;
+
+string DecimaStreamRead(DecimaStream& x) {
+    string s;
+    SPrintf(s, "%s : %d", DecimaStringRead(x.name), x.size);
+    return s;
+}
+
+typedef struct {
+    uquad magic <format=hex>;
+    uint  size;
+    DecimaGUID guid;
+} DecimaCoreHeader <read=DecimaCoreHeaderRead>;
+
+string DecimaCoreHeaderRead(DecimaCoreHeader& x) {
+    string s;
+    SPrintf(s, "%s : %#08x", DecimaGUIDRead(x.guid), x.magic);
+    return s;
+}
+
+typedef struct {
+    DecimaCoreHeader header;
+    uchar data[header.size - sizeof(DecimaGUID)];
+} DecimaDummy <read=DecimaDummyRead>;
+
+string DecimaDummyRead(DecimaDummy& x) {
+    return DecimaCoreHeaderRead(x.header);
+}
+
+uquad DecimaPeekMagic() {
+    uquad magic <hidden=true>;
+    FSeek(FTell() - 8);
+    return magic;
+}
+
+#endif
