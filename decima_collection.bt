@@ -1,0 +1,17 @@
+#ifndef DECIMA_COLLECTION_BT
+#define DECIMA_COLLECTION_BT
+
+#include "decima_common.bt"
+
+local uquad DecimaCollectionMagic = 0x3c0d150db02d8c80;
+
+typedef struct {
+    DecimaCoreHeader header;
+    uint unk_0[6];
+    uchar unk_1;
+    uint count;
+    DecimaCoreRef refs[count] <optimize=false>;
+    uint unk_2[3];
+} DecimaCollection;
+
+#endif

@@ -1,10 +1,14 @@
 #include "decima_common.bt"
+#include "decima_collection.bt"
 #include "decima_texture_set.bt"
 #include "decima_sound_bank.bt"
 #include "decima_voice_info.bt"
 
 while (!FEof()) {
     switch (DecimaPeekMagic()) {
+        case DecimaCollectionMagic:
+            DecimaCollection collection;
+            break;
         case DecimaTextureSetMagic:
             DecimaTextureSet texture_set;
             break;
