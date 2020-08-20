@@ -42,14 +42,6 @@ uint DecimaTextureBlockSize(DecimaTextureFormat& fmt) {
     }
 }
 
-typedef enum <uchar> {
-    NotPresent = 0x00,
-    Embedded = 0x01,
-    ImmediateCoreFile = 0x02,
-    CoreFile = 0x03,
-    WorkOnly = 0x05
-} DecimaTextureLoadMode;
-
 typedef struct (uint width, uint height, DecimaTextureFormat fmt) {
     uchar data[width * height * DecimaTextureBlockDensity(fmt) / 8];
 } DecimaTextureData;
@@ -64,7 +56,7 @@ typedef struct {
     DecimaTextureFormat fmt;
     uint unk_1 <format=hex>;
     uchar unk_2;
-    DecimaTextureLoadMode mode;
+    DecimaLoadMode mode;
     DecimaGUID guid;
     uint buffer_size;
     uint total_size;

@@ -48,9 +48,9 @@ typedef struct {
         DecimaGUID guid;
     if (mode == 2)
         DecimaHashString stream;
-} DecimaGUIDRef <read=DecimaGUIDRefRead>;
+} DecimaCoreRef <read=DecimaCoreRefRead>;
 
-string DecimaGUIDRefRead(DecimaGUIDRef& x) {
+string DecimaCoreRefRead(DecimaCoreRef& x) {
     if (exists(x.guid))
         return DecimaGUIDRead(x.guid);
     return "<not present>";
@@ -90,6 +90,14 @@ typedef struct {
 string DecimaDummyRead(DecimaDummy& x) {
     return DecimaCoreHeaderRead(x.header);
 }
+
+typedef enum <uchar> {
+    NotPresent = 0x00,
+    Embedded = 0x01,
+    ImmediateCoreFile = 0x02,
+    CoreFile = 0x03,
+    WorkOnly = 0x05
+} DecimaLoadMode;
 
 uquad DecimaPeekMagic() {
     uquad magic <hidden=true>;

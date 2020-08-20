@@ -12,7 +12,7 @@ typedef struct {
     uint unk_2;
     uint unk_3;
     uchar unk_4;
-    DecimaGUIDRef guid;
+    DecimaCoreRef guid;
 } DecimaTextureSetUnknown;
 
 typedef struct {
