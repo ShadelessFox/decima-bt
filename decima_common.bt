@@ -78,7 +78,7 @@ typedef struct {
 
 string DecimaCoreHeaderRead(DecimaCoreHeader& x) {
     string s;
-    SPrintf(s, "%s : %#08x", DecimaGUIDRead(x.guid), x.magic);
+    SPrintf(s, "%s : %#016Lx", DecimaGUIDRead(x.guid), x.magic);
     return s;
 }
 
