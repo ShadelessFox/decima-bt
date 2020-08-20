@@ -1,6 +1,7 @@
 #include "decima_common.bt"
 #include "decima_texture_set.bt"
 #include "decima_sound_bank.bt"
+#include "decima_voice_info.bt"
 
 while (!FEof()) {
     switch (DecimaPeekMagic()) {
@@ -12,6 +13,12 @@ while (!FEof()) {
             break;
         case DecimaSoundBankMagic:
             DecimaSoundBank sound_bank;
+            break;
+        case DecimaVoiceInfo_0_magic:
+            DecimaVoiceInfo_0 voice_info1;
+            break;
+        case DecimaVoiceInfo_1_magic:
+            DecimaVoiceInfo_1 voice_info2;
             break;
         default:
             DecimaDummy unknown;

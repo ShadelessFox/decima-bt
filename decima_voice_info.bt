@@ -1,0 +1,38 @@
+#ifndef DECIMA_VOICE_INFO_BT
+#define DECIMA_VOICE_INFO_BT
+
+#include "decima_common.bt"
+
+local uquad DecimaVoiceInfo_0_magic = 0x4915E84F7E31E2AA;
+local uquad DecimaVoiceInfo_1_magic = 0x3DE345CD4B0C7E72;
+local uquad DecimaVoiceInfo_2_magic = 0x8F8BA50D8B46CE52;
+
+
+typedef struct {
+    DecimaCoreHeader header;
+	local uint position = FTell();
+    uchar unk_0[15+4];
+	DecimaString stream;
+    uint32 unk_1[28/4];
+
+    FSeek(position+header.size-16);
+} DecimaVoiceInfo_0;
+
+
+typedef struct {
+    DecimaString stream;
+    uint32 unk_0[36/4];
+} VoiceTranslation;
+
+typedef struct {
+    DecimaCoreHeader header;
+    uchar unk_0[7];
+	uint32 count;
+    uint32 unk_1[3];
+    VoiceTranslation trans[12] <optimize=false>;
+
+} DecimaVoiceInfo_1;
+
+
+
+#endif
