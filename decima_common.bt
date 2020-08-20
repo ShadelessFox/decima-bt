@@ -20,7 +20,7 @@ typedef struct {
     char data[size];
 } DecimaHashString <read=DecimaHashStringRead>;
 
-string DecimaHashStringRead(DecimaString& x) {
+string DecimaHashStringRead(DecimaHashString& x) {
     if (exists(x.data))
         return x.data;
     return "<empty>";
