@@ -1,0 +1,69 @@
+#ifndef DECIMA_SHADER_BT
+#define DECIMA_SHADER_BT
+
+#include "decima_common.bt"
+
+local uquad DecimaShaderMagic = 0x16bb69a9e5aa0d9e;
+
+typedef struct (uquad section_offset) {
+    uint offset;
+    uint semantic_index;
+    uint system_value_type;
+    uint component_type;
+    uint register;
+    uchar mask;
+    uchar rw_mask;
+} ISGNElement;
+
+typedef struct {    
+    uchar fourcc[4];
+    uint size;
+    
+    local uquad section_offset = FTell();
+    
+    if (fourcc == "RDEF") {
+        uint constant_buffer_count;
+        uint constant_buffer_offset;
+        uint resource_binding_count;
+        uint resource_binding_offset;
+        uchar version[2];
+        ushort type;
+        uint flags;
+        uint compiler_name_offset;
+    }
+    
+    if (fourcc == "ISGN") {
+        uint count;
+        uint unk_0;
+        
+        local uint index;
+        for(index = 0; index < count; index++) {
+            ISGNElement element(section_offset);
+        }
+    }
+    
+    FSeek(section_offset + size);
+} ShaderSection <read=ShaderSectionRead>;
+
+string ShaderSectionRead(ShaderSection& x) {
+    return x.fourcc;
+}
+
+typedef struct {
+    uchar fourcc[4];
+    uquad checksum[2];
+    uint unk_0;
+    uint size;
+    uint chunk_count;
+    uint chunk_offsets[chunk_count] <optimize=false>;
+    ShaderSection chunks[chunk_count] <optimize=false>;
+} ShaderHeader;
+
+typedef struct {
+    DecimaCoreHeader header;
+    uint size;
+    uchar unk_0[84];
+    ShaderHeader data;
+} DecimaShader;
+
+#endif

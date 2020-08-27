@@ -1,0 +1,18 @@
+#ifndef DECIMA_PREFETCH_BT
+#define DECIMA_PREFETCH_BT
+
+#include "decima_common.bt"
+
+local uquad DecimaPrefetchMagic = 0xd05789eae3acbf02;
+
+typedef struct {
+    DecimaCoreHeader header;
+    uint strings_count;
+    DecimaHashString strings_count[strings_count] <optimize=false>;
+    uint sizes_count;
+    uint sizes[sizes_count] <optimize=false>;
+    uint indices_count;
+    uint indices[indices_count] <optimize=false>;
+} DecimaPrefetch;
+
+#endif

@@ -1,13 +1,24 @@
-#include "decima_common.bt"
 #include "decima_collection.bt"
-#include "decima_texture_set.bt"
+#include "decima_common.bt"
+#include "decima_material.bt"
+#include "decima_model.bt"
+#include "decima_prefetch.bt"
 #include "decima_sound_bank.bt"
+#include "decima_texture_set.bt"
 #include "decima_voice_info.bt"
+#include "decima_shader.bt"
 
 while (!FEof()) {
     switch (DecimaPeekMagic()) {
+        case DecimaMaterialMagic:
+            DecimaMaterial material;
+            return;
+            break;
         case DecimaCollectionMagic:
             DecimaCollection collection;
+            break;
+        case DecimaPrefetchMagic:
+            DecimaPrefetch prefetch;
             break;
         case DecimaTextureSetMagic:
             DecimaTextureSet texture_set;
@@ -24,8 +35,17 @@ while (!FEof()) {
         case DecimaVoiceInfo_1_magic:
             DecimaVoiceInfo_1 voice_info2;
             break;
+        case DecimaMeshInfoMagic:
+            DecimaMeshInfo mesh_info;
+            break;
+        case DecimaVerticesInfoMagic:
+            DecimaVerticesInfo vertices_info;
+            break;
+        case DecimaIndicesInfoMagic:
+            DecimaIndicesInfo indices_info;
+            break;
         default:
-            DecimaDummy unknown;
+            DecimaDummy unknown <hidden=true>;
             break;
     }
 }

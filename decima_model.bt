@@ -1,0 +1,20 @@
+#ifndef DECIMA_MODEL_BT
+#define DECIMa_MODEL_BT
+
+local uquad DecimaMeshInfoMagic = 0xEE49D93DA4C1F4B8;
+local uquad DecimaVerticesInfoMagic = 0x3AC29A123FAABAB4;
+local uquad DecimaIndicesInfoMagic = 0x5FE633B37CEDBF84;
+
+typedef struct {
+    DecimaDummy dummy;
+} DecimaMeshInfo;
+
+typedef struct {
+    DecimaDummy dummy;
+} DecimaVerticesInfo;
+
+typedef struct {
+    DecimaDummy dummy;
+} DecimaIndicesInfo;
+
+#endif

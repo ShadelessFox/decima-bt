@@ -3,15 +3,12 @@
 
 #include "decima_common.bt"
 
-local uquad DecimaCollectionMagic = 0x3c0d150db02d8c80;
+local uquad DecimaCollectionMagic = 0xf3586131b4f18516;
 
 typedef struct {
     DecimaCoreHeader header;
-    uint unk_0[6];
-    uchar unk_1;
     uint count;
     DecimaCoreRef refs[count] <optimize=false>;
-    uint unk_2[3];
 } DecimaCollection;
 
 #endif

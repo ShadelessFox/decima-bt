@@ -6,39 +6,40 @@
 local uquad DecimaTextureMagic = 0xa664164d69fd2b38;
 
 typedef enum <uchar> {
+    RGBA8 = 0xC,
+    RGBA16F = 0x13,
+    A8 = 0x1F,
     BC1 = 0x42,
     BC2 = 0x43,
     BC3 = 0x44,
     BC4 = 0x45,
     BC5 = 0x47,
     BC7 = 0x4B,
-    RGBA8 = 0xC,
-    A8 = 0x1F
 } DecimaTextureFormat;
 
 uint DecimaTextureBlockDensity(DecimaTextureFormat& fmt) {
     switch (fmt) {
-        case BC1:   return 4;
-        case BC3:   return 8;
-        case BC4:   return 4;
-        case BC5:   return 8;
-        case BC7:   return 8;
-        case A8:    return 8;
-        case RGBA8: return 32;
-        case 19: return 64;
+        case RGBA8:   return 32;
+        case RGBA16F: return 64;
+        case A8:      return 8;
+        case BC1:     return 4;
+        case BC3:     return 8;
+        case BC4:     return 4;
+        case BC5:     return 8;
+        case BC7:     return 8;
     }
 }
 
 uint DecimaTextureBlockSize(DecimaTextureFormat& fmt) {
     switch (fmt) {
-        case BC1:   return 4;
-        case BC3:   return 4;
-        case BC4:   return 4;
-        case BC5:   return 4;
-        case BC7:   return 4;
-        case A8:    return 1;
-        case RGBA8: return 1;
-        case 19: return 1;
+        case RGBA8:   return 1;
+        case RGBA16F: return 1;
+        case A8:      return 1;
+        case BC1:     return 4;
+        case BC3:     return 4;
+        case BC4:     return 4;
+        case BC5:     return 4;
+        case BC7:     return 4;
     }
 }
 

@@ -1,0 +1,40 @@
+#ifndef DECIMA_MATERIAL_BT
+#define DECIMa_MATERIAL_BT
+
+#include "decima_common.bt"
+
+local uquad DecimaMaterialMagic = 0xe844b010bf3cfd73;
+
+typedef struct {
+    DecimaCoreHeader header;
+    uchar unk_0[140];
+    DecimaCoreRef ref_0;
+    uchar unk_1[32];
+    DecimaCoreRef ref_1;
+    uchar unk_2[245];
+    DecimaCoreRef ref_2;
+    uchar unk_3[32];
+    DecimaCoreRef ref_3;
+    uchar unk_4[249];
+    DecimaCoreRef ref_4;
+    uchar unk_5[32];
+    DecimaCoreRef ref_5;
+    uchar unk_6[32];
+    DecimaCoreRef ref_6;
+    uchar unk_7[32];
+    DecimaCoreRef ref_7;
+    uchar unk_8[32];
+    DecimaCoreRef ref_8;
+    uchar unk_9[81];
+    DecimaCoreRef ref_9;
+    uchar unk_10[32];
+    DecimaCoreRef ref_10;
+    uchar unk_11[32];
+    DecimaCoreRef ref_11;
+    uchar unk_12[32];
+    DecimaCoreRef ref_12;
+    uchar unk_13[32];
+    DecimaCoreRef ref_13;
+} DecimaMaterial;
+
+#endif
