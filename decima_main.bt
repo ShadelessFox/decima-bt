@@ -7,12 +7,14 @@
 #include "decima_texture_set.bt"
 #include "decima_voice_info.bt"
 #include "decima_shader.bt"
-
+local uint64 start =0;
 while (!FEof()) {
     switch (DecimaPeekMagic()) {
         case DecimaMaterialMagic:
+            start = FTell();
             DecimaMaterial material;
-            return;
+
+            FSeek(start+material.header.size+12);
             break;
         case DecimaCollectionMagic:
             DecimaCollection collection;
@@ -45,7 +47,7 @@ while (!FEof()) {
             DecimaIndicesInfo indices_info;
             break;
         default:
-            DecimaDummy unknown <hidden=true>;
+            DecimaDummy unknown <hidden=false>;
             break;
     }
 }
