@@ -82,7 +82,7 @@ typedef struct {
     uquad magic <format=hex>;
     uint  size;
     DecimaGUID guid;
-} DecimaCoreHeader <read=DecimaCoreHeaderRead>;
+} DecimaCoreHeader <read=DecimaCoreHeaderRead, bgcolor=0xffcabf>;
 
 string DecimaCoreHeaderRead(DecimaCoreHeader& x) {
     string s;
