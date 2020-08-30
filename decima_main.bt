@@ -1,5 +1,6 @@
 #include "decima_collection.bt"
 #include "decima_common.bt"
+#include "decima_icon.bt"
 #include "decima_material.bt"
 #include "decima_model.bt"
 #include "decima_prefetch.bt"
@@ -18,6 +19,9 @@ while (!FEof()) {
             break;
         case DecimaCollectionMagic:
             DecimaCollection collection;
+            break;
+        case DecimaIconMagic:
+            DecimaIcon icon;
             break;
         case DecimaPrefetchMagic:
             DecimaPrefetch prefetch;

@@ -1,0 +1,35 @@
+#ifndef DECIMA_ICON_BT
+#define DECIMA_ICON_BT
+
+#include "decima_common.bt"
+#include "decima_texture.bt"
+
+local uquad DecimaIconMagic = 0x292f8b9447af20a8;
+
+typedef struct {
+    ushort unk_0;
+    ushort width;
+    ushort height;
+    ushort unk_1;
+    uchar  unk_2;
+    DecimaTextureFormat fmt;
+    uchar  pad[46];
+    uchar  data[(uint) width * height * DecimaTextureBlockDensity(fmt) / 8];
+} DecimaIconData;
+
+typedef struct {
+    DecimaCoreHeader header;
+    DecimaHashString name;
+    uint32 width;
+    uint32 height;
+    uint32 icon_size_0;
+    uint32 icon_size_1;
+
+    if (icon_size_0 > 0)
+      DecimaIconData data_0;
+
+    if (icon_size_1 > 0)
+      DecimaIconData data_1;
+} DecimaIcon;
+
+#endif
